@@ -19,12 +19,14 @@ export const routes = {
   privacy: "/privacy",
   terms: "/terms",
 
-  // Future Web App entry (currently an honest status page)
+  // Future Web App entry (auth boundary; renders sign-in CTA when not
+  // authenticated, account state when authenticated)
   app: "/app",
 
-  // Future auth entry points (not yet implemented)
+  // Auth entry points (Supabase passwordless email)
   login: "/login",
-  register: "/register",
+  logout: "/logout",
+  authCallback: "/auth/callback",
 
   // Admin (not linked publicly)
   admin: "/admin",

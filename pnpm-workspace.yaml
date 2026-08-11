@@ -1,7 +1,12 @@
 packages:
   - "apps/*"
+  - "backend/*"
   - "packages/*"
+
+allowBuilds:
+  '@nestjs/core': set this to true or false
 
 onlyBuiltDependencies:
   - sharp
   - unrs-resolver
+  - "@nestjs/core"
