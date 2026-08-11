@@ -1,0 +1,18 @@
+{
+  "name": "rndm",
+  "version": "0.1.0",
+  "private": true,
+  "description": "RNDM — random voice-social calling platform. Monorepo root.",
+  "packageManager": "pnpm@11.21.0",
+  "scripts": {
+    "dev": "pnpm --filter @rndm/web dev",
+    "build": "pnpm --filter @rndm/web build",
+    "start": "pnpm --filter @rndm/web start",
+    "lint": "pnpm --filter @rndm/web lint",
+    "typecheck": "pnpm --filter @rndm/web typecheck",
+    "test": "pnpm --filter @rndm/web test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

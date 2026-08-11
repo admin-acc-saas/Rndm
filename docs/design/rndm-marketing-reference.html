@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RNDM | Meaningful Voice Connections</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Zodiak:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050505;--accent:#FF4500;--card:#111}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:#fff;margin:0;overflow-x:hidden}
+.font-serif{font-family:'Zodiak',serif}
+.reveal{opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(.22,1,.36,1)}
+.reveal.active{opacity:1;transform:translateY(0)}
+@keyframes float-left{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-30px) rotate(3deg)}}
+@keyframes float-right{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(30px) rotate(-3deg)}}
+.animate-float-left{animation:float-left 15s ease-in-out infinite}
+.animate-float-right{animation:float-right 18s ease-in-out infinite}
+.noise-overlay{position:fixed;inset:0;z-index:50;pointer-events:none;opacity:.04;mix-blend-mode:overlay;background-image:url("https://grainy-gradients.vercel.app/noise.svg")}
+.parallax-card-up{transform:translateY(var(--scroll-offset-up,0px))}
+.parallax-card-down{transform:translateY(var(--scroll-offset-down,0px))}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#050505}::-webkit-scrollbar-thumb{background:#222;border-radius:10px}
+</style>
+</head>
+<body>
+<div class="min-h-screen bg-[#050505] selection:bg-[#FF4500] selection:text-white">
+<div class="noise-overlay"></div>
+
+<nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 py-8">
+<div class="container mx-auto px-8 lg:px-12 flex items-center justify-between">
+<a href="#" class="text-2xl font-bold tracking-tighter font-serif flex items-center gap-2"><span class="w-8 h-8 bg-[#FF4500] rounded-full flex items-center justify-center"><iconify-icon icon="lucide:mic" class="text-black text-sm"></iconify-icon></span>RNDM.</a>
+<div class="hidden md:flex items-center space-x-10">
+<a href="#features" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Features</a>
+<a href="#experience" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Experience</a>
+<a href="#hosts" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Become a Host</a>
+</div>
+<a href="#" class="inline-flex items-center justify-center px-8 py-3 rounded-full text-sm font-semibold bg-white text-black hover:scale-105 hover:bg-[#FF4500] hover:text-white transition-all">Call Now</a>
+</div>
+</nav>
+
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-20 bg-[#050505]">
+<div class="absolute inset-0 z-0 pointer-events-none select-none">
+<div class="absolute inset-0 opacity-50 mix-blend-screen">
+<img src="https://framerusercontent.com/images/9zvwRJAavKKacVyhFCwHyXW1U.png?width=1536&height=1024" alt="Atmosphere" class="w-full h-full object-cover object-center opacity-70 blur-3xl">
+</div>
+<div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#050505]/50 to-[#050505] z-10"></div>
+</div>
+<div class="absolute -left-[5%] top-[-10%] md:left-[-2%] md:top-[-5%] w-[70vw] md:w-[45vw] max-w-[900px] z-10 pointer-events-none mix-blend-hard-light opacity-75 animate-float-left">
+<img src="https://framerusercontent.com/images/KNhiA5A2ykNYqNkj04Hk6BVg5A.png?width=1540&height=1320" alt="The Call" class="w-full h-auto object-contain">
+</div>
+<div class="absolute -right-[8%] bottom-[-10%] md:right-[-2%] md:bottom-0 w-[75vw] md:w-[40vw] max-w-[800px] z-10 pointer-events-none mix-blend-hard-light opacity-75 animate-float-right">
+<img src="https://framerusercontent.com/images/X89VFCABCEjjZ4oLGa3PjbOmsA.png?width=1542&height=1002" alt="The Connection" class="w-full h-auto object-contain">
+</div>
+<div class="container mx-auto px-6 relative z-20 text-center flex flex-col items-center justify-center h-full">
+<div id="hero-content-wrapper" class="max-w-4xl mx-auto">
+<div class="reveal">
+<h1 class="text-6xl md:text-8xl font-medium leading-[1.05] tracking-tight mb-8 text-[#ffe0e0] font-serif" style="text-shadow:0 0 15px rgba(255,255,255,.4)">Meaningful.<br><span class="italic font-light text-[#FF4500]">Connections.</span></h1>
+</div>
+<div class="reveal" style="transition-delay:200ms">
+<p class="text-lg md:text-xl text-gray-300 max-w-xl mx-auto mb-16 font-light tracking-wide leading-relaxed">RNDM matches you with verified hosts for anonymous 1-on-1 voice calls. Real-time audio connections made simple directly in your browser.</p>
+</div>
+<div class="reveal flex flex-col items-center gap-10" style="transition-delay:400ms">
+<div class="relative group cursor-pointer">
+<div class="absolute inset-0 bg-[#FF4500]/30 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+<button id="hero-cta-btn" class="relative border-2 border-white/20 bg-white/5 backdrop-blur-md px-10 py-4 rounded-full flex items-center gap-4 text-sm font-semibold text-white uppercase tracking-[0.2em] hover:bg-white/10 hover:border-white/40 transition-all duration-500">
+<iconify-icon icon="lucide:phone-call" class="text-xl text-[#FF4500]"></iconify-icon><span>Start Instant Match</span>
+</button>
+</div>
+<div class="flex items-center gap-8 text-[10px] md:text-xs text-white/30 uppercase tracking-widest font-mono">
+<div class="flex items-center gap-2"><span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span><span>2,481 Hosts Online</span></div>
+<span class="w-px h-4 bg-white/10"></span><span id="current-time"></span>
+<span class="w-px h-4 bg-white/10"></span><span>Global Voice Node</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="features" class="py-40 relative">
+<div class="container mx-auto px-8 lg:px-12">
+<div class="max-w-4xl mx-auto text-center reveal">
+<h2 class="text-4xl md:text-6xl leading-tight text-white mb-14 font-serif">Conversations that <span class="italic text-white/60">disappear</span>, moments that <span class="italic">linger</span>.</h2>
+<p class="text-xl md:text-2xl text-gray-500 leading-relaxed font-light max-w-3xl mx-auto">Privacy is the foundation of honesty. We've built an anonymous sanctuary for late-night thoughts, language practice, and everything in between.</p>
+</div>
+<div class="mt-32 grid grid-cols-1 md:grid-cols-3 gap-12 items-center justify-items-center">
+<div class="reveal flex flex-col items-center gap-4 group"><div class="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-[#FF4500]/10"><iconify-icon icon="lucide:shield-check" class="text-3xl text-[#FF4500]"></iconify-icon></div><span class="text-xs uppercase tracking-widest text-gray-400">100% Anonymous</span></div>
+<div class="reveal flex flex-col items-center gap-4 group" style="transition-delay:100ms"><div class="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-[#FF4500]/10"><iconify-icon icon="lucide:languages" class="text-3xl text-[#FF4500]"></iconify-icon></div><span class="text-xs uppercase tracking-widest text-gray-400">Global Dialects</span></div>
+<div class="reveal flex flex-col items-center gap-4 group" style="transition-delay:200ms"><div class="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-[#FF4500]/10"><iconify-icon icon="lucide:users-2" class="text-3xl text-[#FF4500]"></iconify-icon></div><span class="text-xs uppercase tracking-widest text-gray-400">Verified Hosts</span></div>
+</div>
+</div>
+</section>
+
+<section id="experience" class="py-48 relative overflow-hidden bg-[#070707]">
+<div class="container mx-auto px-8 lg:px-12 relative z-10">
+<div class="reveal mb-32 text-center"><h2 class="text-5xl md:text-8xl font-serif leading-none">Tailored for<br><span class="italic text-[#FF4500]">your voice.</span></h2></div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+<div class="parallax-card-down">
+<div class="reveal bg-[#FF4500] rounded-[2.5rem] p-10 md:p-14 aspect-[4/5] flex flex-col justify-between shadow-2xl transition-all duration-700 group overflow-hidden relative">
+<div class="absolute -bottom-10 -right-10 opacity-10"><iconify-icon icon="lucide:phone-call" class="text-[200px] text-black"></iconify-icon></div>
+<div class="flex justify-between items-start relative z-10"><div class="w-16 h-16 rounded-2xl bg-black/10 flex items-center justify-center"><iconify-icon icon="lucide:user" class="text-black text-3xl"></iconify-icon></div><span class="text-black font-bold text-sm border border-black/30 px-4 py-1.5 rounded-full uppercase">For Callers</span></div>
+<div class="relative z-10"><h3 class="text-4xl md:text-6xl text-black mb-8 leading-none font-serif font-bold">One tap<br>to match.</h3>
+<ul class="space-y-4 text-black/80 text-lg font-medium"><li>✓ Target Gender Switcher</li><li>✓ Multi-Language Filters</li><li>✓ Topic-Based Categories</li></ul></div>
+<div class="w-full h-px bg-black/10 mt-12"></div>
+</div></div>
+<div class="parallax-card-up lg:mt-32" id="hosts">
+<div class="reveal bg-[#111] border border-white/10 rounded-[2.5rem] p-10 md:p-14 aspect-[4/5] flex flex-col justify-between shadow-2xl transition-all duration-700 relative overflow-hidden" style="transition-delay:150ms">
+<div class="absolute -bottom-10 -right-10 opacity-5"><iconify-icon icon="lucide:radio" class="text-[200px] text-white"></iconify-icon></div>
+<div class="flex justify-between items-start relative z-10"><div class="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center"><iconify-icon icon="lucide:headphones" class="text-white text-3xl"></iconify-icon></div><span class="text-white/40 font-bold text-sm border border-white/10 px-4 py-1.5 rounded-full uppercase">For Hosts</span></div>
+<div class="relative z-10"><h3 class="text-4xl md:text-6xl text-white mb-8 leading-none font-serif font-bold">Host the<br>moment.</h3>
+<ul class="space-y-4 text-gray-400 text-lg"><li>✓ One-Tap Availability</li><li>✓ Real-Time Notifications</li><li>✓ Advanced Talk-Time Analytics</li></ul></div>
+<div class="w-full h-px bg-white/10 mt-12"></div>
+</div></div>
+</div></div>
+<div class="absolute inset-0 opacity-[.03] pointer-events-none" style="background-image:radial-gradient(circle,#fff 1px,transparent 1px);background-size:60px 60px"></div>
+</section>
+
+<section class="py-32 bg-[#050505] relative border-t border-white/5">
+<div class="container mx-auto px-8 text-center reveal"><span class="text-[#FF4500] font-mono tracking-[.4em] uppercase text-xs mb-8 block">Ready to connect?</span>
+<h2 class="text-4xl md:text-7xl font-serif mb-12">Pure connection.<br>Just voice.</h2>
+<div class="flex flex-col md:flex-row gap-6 justify-center items-center"><a href="#" id="final-cta-btn" class="bg-white text-black px-12 py-5 rounded-full font-bold text-lg hover:bg-[#FF4500] hover:text-white transition-all">Open RNDM App</a><a href="#features" class="text-white/60 hover:text-white border-b border-white/20 pb-1">Learn how it works</a></div>
+</div>
+</section>
+
+<footer class="pt-32 pb-16 border-t border-white/5 bg-[#050505] relative overflow-hidden">
+<div class="container mx-auto px-8 lg:px-12 relative z-10">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-16 mb-24">
+<div><div class="text-3xl font-serif font-bold mb-8">RNDM.</div><h2 class="text-[12vw] leading-[.75] tracking-tighter text-white/5 font-bold select-none">RNDM.</h2></div>
+<div class="flex flex-col gap-10 text-left md:text-right"><div class="grid grid-cols-2 md:flex gap-12 text-sm uppercase tracking-widest font-semibold text-gray-500"><div class="flex flex-col gap-4"><a href="#">Privacy</a><a href="#">Terms</a></div><div class="flex flex-col gap-4"><a href="#">Instagram</a><a href="#">Twitter</a></div></div><p class="text-xs text-gray-600 font-mono">EST. 2024 — GLOBAL DISTRIBUTION</p></div>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 gap-4"><p class="text-xs text-gray-700 tracking-widest uppercase">© 2024 RNDM AUDIO INC. ALL RIGHTS RESERVED.</p><iconify-icon icon="lucide:shield-check" class="text-xl text-gray-800"></iconify-icon></div>
+</div>
+</footer>
+</div>
+
+<script>
+const revealObserver=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('active')}),{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+const nav=document.getElementById('main-nav');
+window.addEventListener('scroll',()=>{if(scrollY>50){nav.classList.add('py-5','bg-[#050505]/90','backdrop-blur-xl','border-b','border-white/5');nav.classList.remove('py-8')}else{nav.classList.remove('py-5','bg-[#050505]/90','backdrop-blur-xl','border-b','border-white/5');nav.classList.add('py-8')}});
+window.addEventListener('scroll',()=>{document.querySelectorAll('.parallax-card-up').forEach(e=>e.style.setProperty('--scroll-offset-up',`${scrollY*-.06}px`));document.querySelectorAll('.parallax-card-down').forEach(e=>e.style.setProperty('--scroll-offset-down',`${scrollY*.06}px`))});
+function updateTime(){const e=document.getElementById('current-time');if(!e)return;const d=new Date();let h=d.getHours();const m=d.getMinutes().toString().padStart(2,'0');const a=h>=12?'PM':'AM';h=h%12||12;e.textContent=`${h}:${m} ${a}`};setInterval(updateTime,60000);updateTime();
+const hero=document.getElementById('hero-content-wrapper');window.addEventListener('scroll',()=>{if(scrollY<1200){hero.style.transform=`translateY(${scrollY*.3}px)`;hero.style.opacity=Math.max(0,1-scrollY/800)}});
+</script>
+</body>
+</html>
