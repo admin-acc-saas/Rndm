@@ -46,7 +46,7 @@ function Authenticated({
 }) {
   return (
     <div className="max-w-xl mx-auto text-center">
-      <h1 className="text-3xl md:text-4xl font-serif mb-6 leading-tight">
+      <h1 className="text-[clamp(2rem,6vw,2.5rem)] md:text-4xl font-serif mb-6 leading-tight">
         You&apos;re signed in to <span className="italic text-accent">RNDM</span>
       </h1>
       <p className="text-lg text-gray-400 font-light leading-relaxed mb-8">
@@ -60,7 +60,7 @@ function Authenticated({
       <form action={routes.logout} method="post" className="inline-block">
         <button
           type="submit"
-          className="inline-flex items-center justify-center px-10 py-4 rounded-full text-sm font-semibold bg-white/10 text-white hover:bg-white/20 transition-all uppercase tracking-[0.2em]"
+          className="inline-flex items-center justify-center px-8 sm:px-10 py-4 rounded-full text-xs sm:text-sm font-semibold bg-white/10 text-white hover:bg-white/20 transition-all uppercase tracking-[0.12em] sm:tracking-[0.2em]"
         >
           Sign out
         </button>
@@ -72,7 +72,7 @@ function Authenticated({
 function Unauthenticated() {
   return (
     <div className="max-w-xl mx-auto text-center">
-      <h1 className="text-4xl md:text-6xl font-serif mb-8 leading-tight">
+      <h1 className="text-[clamp(2.25rem,7vw,3rem)] md:text-6xl font-serif mb-8 leading-tight">
         The RNDM app is{" "}
         <span className="italic text-accent">on its way.</span>
       </h1>
@@ -82,7 +82,7 @@ function Unauthenticated() {
       </p>
       <Link
         href={routes.login}
-        className="inline-flex items-center justify-center px-10 py-4 rounded-full text-sm font-semibold bg-white text-black hover:bg-accent hover:text-white transition-all uppercase tracking-[0.2em]"
+        className="inline-flex items-center justify-center px-8 sm:px-10 py-4 rounded-full text-xs sm:text-sm font-semibold bg-white text-black hover:bg-accent hover:text-white transition-all uppercase tracking-[0.12em] sm:tracking-[0.2em]"
       >
         Sign in
       </Link>
@@ -93,7 +93,7 @@ function Unauthenticated() {
 function NotConfigured() {
   return (
     <div className="max-w-xl mx-auto text-center">
-      <h1 className="text-4xl md:text-6xl font-serif mb-8 leading-tight">
+      <h1 className="text-[clamp(2.25rem,7vw,3rem)] md:text-6xl font-serif mb-8 leading-tight">
         The RNDM app is{" "}
         <span className="italic text-accent">on its way.</span>
       </h1>
@@ -104,7 +104,7 @@ function NotConfigured() {
       </p>
       <Link
         href={routes.howItWorks}
-        className="inline-flex items-center justify-center px-10 py-4 rounded-full text-sm font-semibold bg-white text-black hover:bg-accent hover:text-white transition-all uppercase tracking-[0.2em]"
+        className="inline-flex items-center justify-center px-8 sm:px-10 py-4 rounded-full text-xs sm:text-sm font-semibold bg-white text-black hover:bg-accent hover:text-white transition-all uppercase tracking-[0.12em] sm:tracking-[0.2em]"
       >
         See how it works
       </Link>

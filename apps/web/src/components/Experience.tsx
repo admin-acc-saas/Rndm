@@ -25,21 +25,21 @@ export function Experience() {
   return (
     <section
       id="experience"
-      className="py-48 relative overflow-hidden bg-ink-700"
+      className="py-24 md:py-48 relative overflow-hidden bg-ink-700"
     >
-      <div className="container mx-auto px-8 lg:px-12 relative z-10">
-        <Reveal className="mb-32 text-center">
-          <h2 className="text-5xl md:text-8xl font-serif leading-none">
+      <div className="container mx-auto px-6 md:px-8 lg:px-12 relative z-10">
+        <Reveal className="mb-16 md:mb-32 text-center">
+          <h2 className="text-[clamp(2.25rem,8vw,3rem)] md:text-8xl font-serif leading-none">
             Tailored for
             <br />
             <span className="italic text-accent">your voice.</span>
           </h2>
         </Reveal>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto">
           {/* Caller card */}
           <div className="parallax-down">
-            <Reveal className="bg-accent rounded-4xl p-10 md:p-14 aspect-[4/5] flex flex-col justify-between shadow-2xl transition-all duration-700 group overflow-hidden relative">
+            <Reveal className="bg-accent rounded-4xl p-7 sm:p-10 md:p-14 aspect-[4/5] flex flex-col justify-between shadow-2xl transition-all duration-700 group overflow-hidden relative">
               <div className="absolute -bottom-10 -right-10 opacity-10">
                 <PhoneCall className="text-[200px] text-black" />
               </div>
@@ -74,7 +74,7 @@ export function Experience() {
           <div id="hosts" className="parallax-up lg:mt-32">
             <Reveal
               delay={150}
-              className="bg-ink-card border border-white/10 rounded-4xl p-10 md:p-14 aspect-[4/5] flex flex-col justify-between shadow-2xl transition-all duration-700 relative overflow-hidden"
+              className="bg-ink-card border border-white/10 rounded-4xl p-7 sm:p-10 md:p-14 aspect-[4/5] flex flex-col justify-between shadow-2xl transition-all duration-700 relative overflow-hidden"
             >
               <div className="absolute -bottom-10 -right-10 opacity-5">
                 <Radio className="text-[200px] text-white" />

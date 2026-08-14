@@ -13,19 +13,19 @@ type PageHeaderProps = {
  */
 export function PageHeader({ eyebrow, title, description }: PageHeaderProps) {
   return (
-    <section className="pt-48 pb-24 relative">
-      <div className="container mx-auto px-8 lg:px-12 max-w-4xl">
+    <section className="pt-40 md:pt-48 pb-20 md:pb-24 relative">
+      <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-4xl">
         <Reveal>
           {eyebrow ? (
-            <span className="text-accent font-mono tracking-[0.4em] uppercase text-xs mb-8 block">
+            <span className="text-accent font-mono tracking-[0.4em] uppercase text-xs mb-6 md:mb-8 block">
               {eyebrow}
             </span>
           ) : null}
-          <h1 className="text-4xl md:text-6xl leading-tight text-white mb-8 font-serif">
+          <h1 className="text-[clamp(2.25rem,7vw,3rem)] md:text-6xl leading-tight text-white mb-8 font-serif">
             {title}
           </h1>
           {description ? (
-            <p className="text-xl md:text-2xl text-gray-500 leading-relaxed font-light">
+            <p className="text-lg md:text-2xl text-gray-500 leading-relaxed font-light">
               {description}
             </p>
           ) : null}

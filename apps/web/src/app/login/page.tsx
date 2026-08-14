@@ -21,7 +21,7 @@ export default function LoginPage() {
         <div className="container mx-auto px-6">
           <div className="max-w-xl mx-auto">
             <Reveal className="text-center mb-12">
-              <h1 className="text-4xl md:text-5xl font-serif mb-6 leading-tight">
+              <h1 className="text-[clamp(2rem,6vw,2.5rem)] md:text-5xl font-serif mb-6 leading-tight">
                 Welcome to <span className="italic text-accent">RNDM</span>
               </h1>
               <p className="text-lg text-gray-400 font-light leading-relaxed mb-2">

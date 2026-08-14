@@ -29,7 +29,7 @@ export default async function AppEntryPage() {
         <section className="min-h-[80vh] flex items-center justify-center pt-32 pb-20">
           <div className="container mx-auto px-6 text-center">
             <Reveal className="max-w-2xl mx-auto">
-              <h1 className="text-4xl md:text-6xl font-serif mb-8 leading-tight">
+              <h1 className="text-[clamp(2.25rem,7vw,3rem)] md:text-6xl font-serif mb-8 leading-tight">
                 The RNDM app is{" "}
                 <span className="italic text-accent">on its way.</span>
               </h1>
@@ -40,7 +40,7 @@ export default async function AppEntryPage() {
               </p>
               <Link
                 href={routes.howItWorks}
-                className="inline-flex items-center justify-center px-10 py-4 rounded-full text-sm font-semibold bg-white text-black hover:bg-accent hover:text-white transition-all uppercase tracking-[0.2em]"
+                className="inline-flex items-center justify-center px-8 sm:px-10 py-4 rounded-full text-xs sm:text-sm font-semibold bg-white text-black hover:bg-accent hover:text-white transition-all uppercase tracking-[0.12em] sm:tracking-[0.2em]"
               >
                 See how it works
               </Link>

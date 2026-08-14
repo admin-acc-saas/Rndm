@@ -65,7 +65,7 @@ export function LoginForm() {
         <button
           type="submit"
           disabled={status === "sending"}
-          className="w-full inline-flex items-center justify-center px-10 py-4 rounded-full text-sm font-semibold bg-white text-black hover:bg-accent hover:text-white transition-all uppercase tracking-[0.2em] disabled:opacity-60 disabled:cursor-not-allowed"
+          className="w-full inline-flex items-center justify-center px-8 sm:px-10 py-4 rounded-full text-xs sm:text-sm font-semibold bg-white text-black hover:bg-accent hover:text-white transition-all uppercase tracking-[0.12em] sm:tracking-[0.2em] disabled:opacity-60 disabled:cursor-not-allowed"
         >
           {status === "sending" ? "Sending…" : "Send sign-in link"}
         </button>
