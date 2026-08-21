@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "prebuild": "pnpm --filter @rndm/contracts build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
@@ -15,6 +16,9 @@
     "next": "15.1.6",
     "react": "19.0.0",
     "react-dom": "19.0.0",
+    "@rndm/contracts": "workspace:*",
+    "@supabase/ssr": "0.5.2",
+    "@supabase/supabase-js": "2.45.4",
     "lucide-react": "0.469.0"
   },
   "devDependencies": {

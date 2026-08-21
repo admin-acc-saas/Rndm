@@ -20,11 +20,11 @@ export function Navbar() {
       aria-label="Primary"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "py-5 bg-ink/90 backdrop-blur-xl border-b border-white/5"
-          : "py-8"
+          ? "py-4 md:py-5 bg-ink/90 backdrop-blur-xl border-b border-white/5"
+          : "py-6 md:py-8"
       }`}
     >
-      <div className="container mx-auto px-8 lg:px-12 flex items-center justify-between">
+      <div className="container mx-auto px-6 md:px-8 lg:px-12 flex items-center justify-between">
         <Logo />
 
         <div className="hidden md:flex items-center space-x-10">
@@ -46,7 +46,7 @@ export function Navbar() {
 
         <Link
           href={routes.app}
-          className="inline-flex items-center justify-center px-8 py-3 rounded-full text-sm font-semibold bg-white text-black hover:scale-105 hover:bg-accent hover:text-white transition-all"
+          className="inline-flex items-center justify-center px-6 md:px-8 py-2.5 md:py-3 rounded-full text-xs sm:text-sm font-semibold bg-white text-black hover:scale-105 hover:bg-accent hover:text-white transition-all"
         >
           Call Now
         </Link>

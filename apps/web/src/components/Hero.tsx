@@ -39,8 +39,11 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-ink/50 to-ink z-10" />
       </div>
 
-      {/* Floating decorative images */}
-      <div className="absolute -left-[5%] top-[-10%] md:left-[-2%] md:top-[-5%] w-[70vw] md:w-[45vw] max-w-[900px] z-10 pointer-events-none mix-blend-hard-light opacity-75 animate-float-left">
+      {/* Floating decorative images.
+          Kept on all viewports (artwork + animation preserved). Scaled and
+          dimmed on narrow screens so they never cause overflow or fight the
+          hero text; the section clips them to its bounds (overflow-hidden). */}
+      <div className="absolute -left-[5%] top-[-10%] md:left-[-2%] md:top-[-5%] w-[70vw] md:w-[45vw] max-w-[900px] z-10 pointer-events-none mix-blend-hard-light opacity-50 md:opacity-75 animate-float-left">
         <Image
           src="/atmosphere/the-call.png"
           alt="Decorative call visualization"
@@ -49,7 +52,7 @@ export function Hero() {
           className="w-full h-auto object-contain"
         />
       </div>
-      <div className="absolute -right-[8%] bottom-[-10%] md:right-[-2%] md:bottom-0 w-[75vw] md:w-[40vw] max-w-[800px] z-10 pointer-events-none mix-blend-hard-light opacity-75 animate-float-right">
+      <div className="absolute -right-[8%] bottom-[-10%] md:right-[-2%] md:bottom-0 w-[75vw] md:w-[40vw] max-w-[800px] z-10 pointer-events-none mix-blend-hard-light opacity-50 md:opacity-75 animate-float-right">
         <Image
           src="/atmosphere/the-connection.png"
           alt="Decorative connection visualization"
@@ -59,12 +62,13 @@ export function Hero() {
         />
       </div>
 
-      {/* Centered content */}
-      <div className="container mx-auto px-6 relative z-20 text-center flex flex-col items-center justify-center h-full">
+      {/* Centered content. px-6 gives comfortable mobile side margins without
+          shrinking the desktop gutter (md:px-8 lg:px-12 unchanged). */}
+      <div className="container mx-auto px-6 md:px-8 lg:px-12 relative z-20 text-center flex flex-col items-center justify-center h-full">
         <div id="hero-content-wrapper" className="max-w-4xl mx-auto">
           <Reveal>
             <h1
-              className="text-6xl md:text-8xl font-medium leading-[1.05] tracking-tight mb-8 text-[#ffe0e0] font-serif"
+              className="text-[clamp(2.25rem,9vw,3.75rem)] md:text-8xl font-medium leading-[1.05] tracking-tight mb-8 text-[#ffe0e0] font-serif"
               style={{ textShadow: "0 0 15px rgba(255,255,255,.4)" }}
             >
               Meaningful.
@@ -76,7 +80,7 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={200}>
-            <p className="text-lg md:text-xl text-gray-300 max-w-xl mx-auto mb-16 font-light tracking-wide leading-relaxed">
+            <p className="text-base md:text-xl text-gray-300 max-w-xl mx-auto mb-12 md:mb-16 font-light tracking-wide leading-relaxed">
               RNDM matches you with verified hosts for anonymous 1-on-1 voice
               calls. Real-time audio connections made simple directly in your
               browser.
@@ -84,19 +88,19 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={400}>
-            <div className="flex flex-col items-center gap-10">
+            <div className="flex flex-col items-center gap-8 md:gap-10">
               <div className="relative group cursor-pointer">
                 <div className="absolute inset-0 bg-accent/30 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 <Link
                   href={routes.app}
-                  className="relative border-2 border-white/20 bg-white/5 backdrop-blur-md px-10 py-4 rounded-full flex items-center gap-4 text-sm font-semibold text-white uppercase tracking-[0.2em] hover:bg-white/10 hover:border-white/40 transition-all duration-500"
+                  className="relative border-2 border-white/20 bg-white/5 backdrop-blur-md px-6 sm:px-10 py-3.5 md:py-4 rounded-full flex items-center gap-3 sm:gap-4 text-xs sm:text-sm font-semibold text-white uppercase tracking-[0.12em] sm:tracking-[0.2em] hover:bg-white/10 hover:border-white/40 transition-all duration-500"
                 >
-                  <PhoneCall className="text-xl text-accent" />
+                  <PhoneCall className="text-base sm:text-xl text-accent" />
                   <span>Start Instant Match</span>
                 </Link>
               </div>
 
-              <div className="flex items-center gap-8 text-[10px] md:text-xs text-white/30 uppercase tracking-widest font-mono">
+              <div className="flex items-center gap-6 md:gap-8 text-[10px] md:text-xs text-white/30 uppercase tracking-widest font-mono">
                 <CurrentTime />
                 <span className="w-px h-4 bg-white/10" />
                 <span>Global Voice Platform</span>

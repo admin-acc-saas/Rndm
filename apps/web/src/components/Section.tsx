@@ -10,8 +10,8 @@ type SectionProps = {
 /** Standard content section wrapper with consistent vertical rhythm. */
 export function Section({ children, className = "", id }: SectionProps) {
   return (
-    <section id={id} className={`py-24 relative ${className}`}>
-      <div className="container mx-auto px-8 lg:px-12">{children}</div>
+    <section id={id} className={`py-20 md:py-24 relative ${className}`}>
+      <div className="container mx-auto px-6 md:px-8 lg:px-12">{children}</div>
     </section>
   );
 }

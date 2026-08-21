@@ -6,11 +6,17 @@
   "packageManager": "pnpm@11.21.0",
   "scripts": {
     "dev": "pnpm --filter @rndm/web dev",
-    "build": "pnpm --filter @rndm/web build",
+    "build": "pnpm build:contracts && pnpm build:web && pnpm build:api",
     "start": "pnpm --filter @rndm/web start",
-    "lint": "pnpm --filter @rndm/web lint",
-    "typecheck": "pnpm --filter @rndm/web typecheck",
-    "test": "pnpm --filter @rndm/web test"
+    "lint": "pnpm --filter @rndm/web lint && pnpm --filter @rndm/api lint",
+    "typecheck": "pnpm --filter @rndm/contracts typecheck && pnpm --filter @rndm/web typecheck && pnpm --filter @rndm/api typecheck",
+    "test": "pnpm --filter @rndm/web test && pnpm --filter @rndm/api test",
+    "dev:web": "pnpm --filter @rndm/web dev",
+    "dev:api": "pnpm --filter @rndm/api start:dev",
+    "build:contracts": "pnpm --filter @rndm/contracts build",
+    "build:web": "pnpm --filter @rndm/web build",
+    "build:api": "pnpm --filter @rndm/api build",
+    "start:api": "pnpm --filter @rndm/api start:prod"
   },
   "engines": {
     "node": ">=20"
