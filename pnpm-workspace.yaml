@@ -4,9 +4,13 @@ packages:
   - "packages/*"
 
 allowBuilds:
-  '@nestjs/core': set this to true or false
+  "@nestjs/core": true
+  msgpackr-extract: true
+  sharp: true
+  unrs-resolver: true
 
 onlyBuiltDependencies:
   - sharp
   - unrs-resolver
   - "@nestjs/core"
+  - msgpackr-extract
