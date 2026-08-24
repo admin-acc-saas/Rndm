@@ -1,4 +1,5 @@
 import {
+  ConflictException,
   Injectable,
   Logger,
   ServiceUnavailableException,
@@ -7,6 +8,7 @@ import {
 import type { SupabaseClient } from "@supabase/supabase-js";
 import {
   CompleteCallerOnboardingRequest,
+  HostApplicationStatus,
   OnboardingStateResponse,
   Profile,
   SubmitHostOnboardingRequest,
@@ -151,6 +153,21 @@ export class OnboardingService {
     let profile = await this.users.getOrCreateProfile(supabaseUserId);
     if (!profile) {
       throw new UnauthorizedException("Profile service unavailable");
+    }
+    // Reject before any mutation: while an application is pending or approved,
+    // re-submission must not rewrite the display name or host profile. A
+    // rejected application may re-apply (handled by createApplication).
+    const existingApplication = await this.applications.getCurrentApplication(
+      profile.id,
+    );
+    if (
+      existingApplication &&
+      (existingApplication.status === HostApplicationStatus.Pending ||
+        existingApplication.status === HostApplicationStatus.Approved)
+    ) {
+      throw new ConflictException(
+        "An active Host application already exists for this account",
+      );
     }
     if (profile.role !== UserRole.Host) {
       // First Host onboarding: assign the fixed role exactly once.

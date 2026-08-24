@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 import { supabaseConfig, isSupabaseConfigured } from "@/lib/supabase/client";
 import { routes } from "@/lib/routes";
+import { publicOrigin } from "@/lib/request-origin";
 
 /**
  * Supabase auth callback (magic-link / OAuth redirect target).
@@ -13,12 +14,13 @@ import { routes } from "@/lib/routes";
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
+  const origin = publicOrigin(request);
 
   if (!isSupabaseConfigured() || !code) {
-    return NextResponse.redirect(new URL(routes.app, requestUrl.origin));
+    return NextResponse.redirect(new URL(routes.app, origin));
   }
 
-  const response = NextResponse.redirect(new URL(routes.app, requestUrl.origin));
+  const response = NextResponse.redirect(new URL(routes.app, origin));
   const supabase = createServerClient(
     supabaseConfig.url,
     supabaseConfig.anonKey,

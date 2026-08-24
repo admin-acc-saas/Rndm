@@ -2,13 +2,14 @@ import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 import { supabaseConfig, isSupabaseConfigured } from "@/lib/supabase/client";
 import { routes } from "@/lib/routes";
+import { publicOrigin } from "@/lib/request-origin";
 
 /**
  * Sign-out route. Clears the Supabase session and redirects home. When
  * Supabase is not configured, simply redirects home.
  */
 export async function POST(request: NextRequest) {
-  const redirectUrl = new URL(routes.home, request.url);
+  const redirectUrl = new URL(routes.home, publicOrigin(request));
   const response = NextResponse.redirect(redirectUrl);
 
   if (!isSupabaseConfigured()) {
