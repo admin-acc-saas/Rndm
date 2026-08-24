@@ -17,6 +17,31 @@ export interface AppConfig {
     anonKey: string;
     serviceRoleKey: string;
   };
+  redis: {
+    /** REDIS_URL, e.g. redis://default:pass@host:6379. Empty = disabled. */
+    url: string;
+  };
+  host: {
+    /** Platform bounds for a Host's self-set calling rate (coins/minute). */
+    rateMinCoins: number;
+    rateMaxCoins: number;
+  };
+  availability: {
+    /** TTL for host availability keys; clients must heartbeat to stay online. */
+    ttlSeconds: number;
+  };
+  admin: {
+    /**
+     * Emails permitted to call administrative review endpoints. Phase 3 has
+     * no Admin Dashboard; this allowlist is the interim, auditable boundary
+     * the future dashboard will build on.
+     */
+    emails: string[];
+  };
+  legal: {
+    /** Version tag recorded with each legal/policy acceptance. */
+    documentsVersion: string;
+  };
 }
 
 export type AppConfigValidationResult =
@@ -89,6 +114,22 @@ export function appConfigValidationSchema(
       url: str(raw, "SUPABASE_URL"),
       anonKey: str(raw, "SUPABASE_ANON_KEY"),
       serviceRoleKey: str(raw, "SUPABASE_SERVICE_ROLE_KEY"),
+    },
+    redis: {
+      url: str(raw, "REDIS_URL"),
+    },
+    host: {
+      rateMinCoins: num(raw, "HOST_RATE_MIN_COINS", 1),
+      rateMaxCoins: num(raw, "HOST_RATE_MAX_COINS", 1000),
+    },
+    availability: {
+      ttlSeconds: num(raw, "AVAILABILITY_TTL_SECONDS", 300),
+    },
+    admin: {
+      emails: list(raw, "ADMIN_EMAILS", []),
+    },
+    legal: {
+      documentsVersion: str(raw, "LEGAL_DOCS_VERSION", "2026-08"),
     },
   };
 

@@ -1,63 +1,156 @@
 import Link from "next/link";
-import type { Metadata } from "next";
-import { MarketingShell } from "@/components/MarketingShell";
-import { Reveal } from "@/components/Reveal";
-import { AppGateway } from "@/components/app/AppGateway";
-import { pageMetadata } from "@/lib/site";
+import { redirect } from "next/navigation";
+import type {
+  AuthMeResponse,
+  AvailabilityResponse,
+  OnboardingStateResponse,
+} from "@rndm/contracts";
+import { UserRole } from "@rndm/contracts";
+import {
+  getAuthMe,
+  getAvailability,
+  getOnboardingState,
+  isApiConfigured,
+} from "@/lib/api/client";
+import { createServerClientFromCookies } from "@/lib/supabase/server";
 import { routes } from "@/lib/routes";
-import { isSupabaseConfigured } from "@/lib/supabase/client";
+import { Logo } from "@/components/Logo";
+import { AppShell } from "@/components/app/AppShell";
+import { OnboardingFlow } from "@/components/app/OnboardingFlow";
+import { CallerHome } from "@/components/app/CallerHome";
+import { HostHome } from "@/components/app/HostHome";
 
-export const metadata: Metadata = {
-  ...pageMetadata({
-    title: "RNDM App",
-    description:
-      "The RNDM web application is in development. The authenticated caller and host experiences will be available here.",
-    path: "/app",
-  }),
-  // Do not index the not-yet-real app surface until the real app ships.
+export const metadata = {
+  title: "App | RNDM",
   robots: { index: false, follow: false },
 };
 
-export default async function AppEntryPage() {
-  const configured = isSupabaseConfigured();
+/**
+ * Authenticated RNDM app home.
+ *
+ * When Supabase Auth and the backend API are configured, this renders the
+ * real authenticated experience: role selection for new users, the Caller
+ * home, or the Host home with the application/review lifecycle and
+ * eligibility-gated availability. All role/status data is read server-side
+ * from the backend — never from the browser.
+ *
+ * When auth infrastructure is not configured the page still reports state
+ * honestly (fail-closed), it does not render a fake authenticated shell.
+ */
+export default async function AppPage() {
+  const supabase = await createServerClientFromCookies();
 
-  // When Supabase is not configured at all, render an honest status page
-  // instead of pretending the auth boundary exists.
-  if (!configured) {
+  if (!supabase || !isApiConfigured()) {
+    return <AppUnavailable />;
+  }
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  if (!session) {
+    redirect(routes.login);
+  }
+
+  let authMe: AuthMeResponse;
+  try {
+    authMe = await getAuthMe(session.access_token);
+  } catch {
+    return <BackendUnavailable />;
+  }
+
+  const state: OnboardingStateResponse = await getOnboardingState(
+    session.access_token,
+  );
+
+  if (state.needsRoleSelection) {
     return (
-      <MarketingShell>
-        <section className="min-h-[80vh] flex items-center justify-center pt-32 pb-20">
-          <div className="container mx-auto px-6 text-center">
-            <Reveal className="max-w-2xl mx-auto">
-              <h1 className="text-[clamp(2.25rem,7vw,3rem)] md:text-6xl font-serif mb-8 leading-tight">
-                The RNDM app is{" "}
-                <span className="italic text-accent">on its way.</span>
-              </h1>
-              <p className="text-lg md:text-xl text-gray-400 max-w-xl mx-auto mb-12 font-light leading-relaxed">
-                The authenticated caller and host experiences are being built.
-                They will live here, connected to the same production backend as
-                this site. Authentication is not connected in this environment.
-              </p>
-              <Link
-                href={routes.howItWorks}
-                className="inline-flex items-center justify-center px-8 sm:px-10 py-4 rounded-full text-xs sm:text-sm font-semibold bg-white text-black hover:bg-accent hover:text-white transition-all uppercase tracking-[0.12em] sm:tracking-[0.2em]"
-              >
-                See how it works
-              </Link>
-            </Reveal>
-          </div>
+      <AppShell profile={state.profile} email={authMe.email}>
+        <section className="container mx-auto px-6 md:px-8 lg:px-12 py-16 md:py-24">
+          <OnboardingFlow />
         </section>
-      </MarketingShell>
+      </AppShell>
+    );
+  }
+
+  if (state.profile.role === UserRole.Host) {
+    // Availability is Host-only; a 403/500 here must never break the page.
+    let availability: AvailabilityResponse | null = null;
+    if (state.hostApplication?.status === "approved") {
+      availability = await getAvailability(session.access_token).catch(
+        () => null,
+      );
+    }
+    return (
+      <AppShell profile={state.profile} email={authMe.email}>
+        <HostHome state={state} availability={availability} />
+      </AppShell>
     );
   }
 
   return (
-    <MarketingShell>
-      <section className="min-h-[80vh] flex items-center justify-center pt-32 pb-20">
-        <div className="container mx-auto px-6">
-          <AppGateway />
+    <AppShell profile={state.profile} email={authMe.email}>
+      <CallerHome state={state} />
+    </AppShell>
+  );
+}
+
+function AppUnavailable() {
+  return (
+    <div className="min-h-screen bg-ink selection:bg-accent selection:text-white flex items-center justify-center">
+      <div className="noise-overlay" aria-hidden="true" />
+      <section className="container mx-auto px-6 md:px-8 lg:px-12 text-center max-w-xl">
+        <Logo className="mx-auto mb-10" />
+        <h1 className="text-[clamp(2.25rem,7vw,3.5rem)] font-serif mb-6 leading-tight">
+          The RNDM app is <span className="italic text-accent">almost here</span>
+        </h1>
+        <p className="text-lg text-gray-400 font-light leading-relaxed mb-10">
+          Authentication is not configured in this environment yet. Once
+          Supabase Auth and the backend are connected, this page becomes the
+          real authenticated RNDM experience — onboarding, Caller home and
+          Host home.
+        </p>
+        <Link
+          href={routes.home}
+          className="inline-flex items-center justify-center px-8 py-4 rounded-full text-xs sm:text-sm font-semibold bg-white text-black hover:bg-accent hover:text-white transition-all uppercase tracking-[0.12em] sm:tracking-[0.2em]"
+        >
+          Back to home
+        </Link>
+      </section>
+    </div>
+  );
+}
+
+function BackendUnavailable() {
+  return (
+    <div className="min-h-screen bg-ink selection:bg-accent selection:text-white flex items-center justify-center">
+      <div className="noise-overlay" aria-hidden="true" />
+      <section className="container mx-auto px-6 md:px-8 lg:px-12 text-center max-w-xl">
+        <Logo className="mx-auto mb-10" />
+        <h1 className="text-[clamp(2.25rem,7vw,3.5rem)] font-serif mb-6 leading-tight">
+          We&apos;ll be right <span className="italic text-accent">back</span>
+        </h1>
+        <p className="text-lg text-gray-400 font-light leading-relaxed mb-10">
+          You are signed in, but the RNDM backend could not be reached. This is
+          a temporary state — nothing about your account has changed. Please
+          try again in a moment.
+        </p>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Link
+            href={routes.app}
+            className="inline-flex items-center justify-center px-8 py-4 rounded-full text-xs sm:text-sm font-semibold bg-white text-black hover:bg-accent hover:text-white transition-all uppercase tracking-[0.12em] sm:tracking-[0.2em]"
+          >
+            Try again
+          </Link>
+          <form action={routes.logout} method="post">
+            <button
+              type="submit"
+              className="text-xs uppercase tracking-[0.2em] text-gray-400 hover:text-white transition-colors"
+            >
+              Sign out
+            </button>
+          </form>
         </div>
       </section>
-    </MarketingShell>
+    </div>
   );
 }

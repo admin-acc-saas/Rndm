@@ -1,4 +1,11 @@
-import type { AuthMeResponse, HealthResponse } from "@rndm/contracts";
+import type {
+  AuthMeResponse,
+  AvailabilityResponse,
+  HealthResponse,
+  HostEligibilityResult,
+  MyProfileResponse,
+  OnboardingStateResponse,
+} from "@rndm/contracts";
 
 /**
  * Backend API base URL (the NestJS API). Configured via
@@ -48,4 +55,32 @@ export function getHealth(): Promise<HealthResponse> {
  */
 export function getAuthMe(accessToken: string): Promise<AuthMeResponse> {
   return request<AuthMeResponse>("/auth/me", accessToken);
+}
+
+/** Authenticated onboarding state. */
+export function getOnboardingState(
+  accessToken: string,
+): Promise<OnboardingStateResponse> {
+  return request<OnboardingStateResponse>("/onboarding/state", accessToken);
+}
+
+/** Authenticated full profile view. */
+export function getMyProfile(
+  accessToken: string,
+): Promise<MyProfileResponse> {
+  return request<MyProfileResponse>("/profiles/me", accessToken);
+}
+
+/** Authenticated availability state (Host). */
+export function getAvailability(
+  accessToken: string,
+): Promise<AvailabilityResponse> {
+  return request<AvailabilityResponse>("/availability/me", accessToken);
+}
+
+/** Authenticated Host eligibility evaluation. */
+export function getEligibility(
+  accessToken: string,
+): Promise<HostEligibilityResult> {
+  return request<HostEligibilityResult>("/eligibility/me", accessToken);
 }

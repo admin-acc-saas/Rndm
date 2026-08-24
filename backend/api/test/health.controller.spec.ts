@@ -2,6 +2,7 @@ import { Test } from "@nestjs/testing";
 import { HealthController } from "../src/health/health.controller";
 import { HealthService } from "../src/health/health.service";
 import { SupabaseService } from "../src/supabase/supabase.service";
+import { RedisService } from "../src/redis/redis.service";
 
 describe("HealthController", () => {
   let controller: HealthController;
@@ -13,6 +14,10 @@ describe("HealthController", () => {
       providers: [
         HealthService,
         { provide: SupabaseService, useValue: { getService: () => null } },
+        {
+          provide: RedisService,
+          useValue: { isConfigured: false, ping: async () => false },
+        },
       ],
     }).compile();
 
@@ -25,6 +30,7 @@ describe("HealthController", () => {
     expect(result.service).toBe("rndm-api");
     expect(result.status).toBe("degraded"); // db unconfigured in tests
     expect(result.dependencies.database).toBe("unconfigured");
+    expect(result.dependencies.redis).toBe("unconfigured");
     expect(typeof result.timestamp).toBe("string");
   });
 

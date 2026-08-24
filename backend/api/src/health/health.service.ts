@@ -1,6 +1,7 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { HealthResponse } from "@rndm/contracts";
 import { SupabaseService } from "../supabase/supabase.service";
+import { RedisService } from "../redis/redis.service";
 
 /**
  * Health service.
@@ -15,16 +16,27 @@ import { SupabaseService } from "../supabase/supabase.service";
 export class HealthService {
   private readonly logger = new Logger(HealthService.name);
 
-  constructor(private readonly supabase: SupabaseService) {}
+  constructor(
+    private readonly supabase: SupabaseService,
+    private readonly redis: RedisService,
+  ) {}
 
   async check(): Promise<HealthResponse> {
-    const database = await this.checkDatabase();
+    const [database, redis] = await Promise.all([
+      this.checkDatabase(),
+      this.checkRedis(),
+    ]);
     return {
       status: database === "ok" ? "ok" : "degraded",
       service: "rndm-api",
       timestamp: new Date().toISOString(),
-      dependencies: { database },
+      dependencies: { database, redis },
     };
+  }
+
+  private async checkRedis(): Promise<HealthResponse["dependencies"]["redis"]> {
+    if (!this.redis.isConfigured) return "unconfigured";
+    return (await this.redis.ping()) ? "ok" : "unavailable";
   }
 
   private async checkDatabase(): Promise<HealthResponse["dependencies"]["database"]> {
