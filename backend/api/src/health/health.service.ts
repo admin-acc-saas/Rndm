@@ -44,10 +44,10 @@ export class HealthService {
     if (!client) return "unconfigured";
     try {
       // A trivial query against the profiles table. We only care that the
-      // database responds, not in the row content.
-      const { error } = await client
-        .from("profiles")
-        .select("id", { count: "exact", head: true });
+      // database responds, not in the row content. This must be a GET: on
+      // HEAD requests postgrest-js cannot parse the error body and masks a
+      // 404 (missing table) as a 204 success.
+      const { error } = await client.from("profiles").select("id").limit(1);
       if (error) {
         this.logger.warn(`Health database probe failed: ${error.message}`);
         return "unavailable";
